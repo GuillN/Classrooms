@@ -1,0 +1,5 @@
+<template name="NewClassroom">
+    <div class="new-classroom-container">
+        {{> quickForm collection="Classrooms" type="insert" id="insertClassroomForm" class="new-classroom-form" omitFields="teacher, students.title"}}
+    </div>
+</template>
