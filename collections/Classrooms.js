@@ -2,7 +2,6 @@ import SimpleSchema from 'simpl-schema';
 SimpleSchema.extendOptions(['autoform']);
 
 Classrooms = new Mongo.Collection('classrooms');
-// Students = new Mongo.Collection('students');
 
 Classrooms.allow({
     insert: function (userId, doc) {
@@ -24,12 +23,7 @@ Student = new SimpleSchema({
         label: 'Title',
         optional: true,
         autoform: {
-            afFieldInput: {
-                type: 'hidden'
-            },
-            afFormGroup: {
-                label: false
-            }
+            type: 'hidden'
         }
     },
     behaviour: {
