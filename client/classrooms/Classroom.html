@@ -1,0 +1,10 @@
+<template name="Classroom">
+    <article class="classroom">
+        <h3>{{name}}</h3>
+        <p>
+            {{#each students}}
+                <span class="student">{{first_name}}</span>
+            {{/each}}
+        </p>
+    </article>
+</template>
