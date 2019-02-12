@@ -1,5 +1,11 @@
 <template name="Classrooms">
-    {{> NewClassroom}}
+    {{#if newClassroom}}
+    <a href="#" id="showNew">New Classroom</a>
+    {{else}}
+        <section>
+            {{> NewClassroom}}
+        </section>
+    {{/if}}
     <section class="classrooms">
         {{#each classrooms}}
             {{> Classroom}}
