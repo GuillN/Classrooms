@@ -1,14 +1,20 @@
 <template name="Classrooms">
-    {{#if newClassroom}}
-    <a href="#" id="showNew">New Classroom</a>
-    {{else}}
-        <section>
-            {{> NewClassroom}}
-        </section>
+    {{#if Template.subscriptionsReady}}
+        {{#if newClassroom}}
+            <a href="#" id="showNew">New Classroom</a>
+        {{else}}
+            <section>
+                {{> NewClassroom}}
+            </section>
+        {{/if}}
     {{/if}}
     <section class="classrooms">
-        {{#each classrooms}}
-            {{> Classroom}}
-        {{/each}}
+        {{#if Template.subscriptionsReady}}
+            {{#each classrooms}}
+                {{> ClassroomPreview}}
+            {{/each}}
+        {{else}}
+            <p>Loading</p>
+        {{/if}}
     </section>
 </template>

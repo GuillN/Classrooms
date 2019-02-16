@@ -1,4 +1,9 @@
-Meteor.subscribe('classrooms');
+Template.Classrooms.onCreated(function (){
+    const self = this;
+    self.autorun(function (){
+        self.subscribe('classrooms')
+    })
+});
 
 Template.Classrooms.helpers({
     classrooms: () => {
