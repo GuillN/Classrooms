@@ -1,0 +1,9 @@
+<template name="ClassroomEdit">
+    <a href="/classroom/{{classroom._id}}" class="btn">Retour</a>
+    <h1>{{classroom.name}} - Edit</h1>
+    {{#each classroom.students}}
+        <!--<p>{{first_name}} {{last_name}}</p>-->
+        <!--TODO Inline editing-->
+        <p>{{> editableText collection="classrooms" field="first_name" options=postOptions}} {{> editableText collection="classrooms" field="last_name"}}</p>
+    {{/each}}
+</template>

@@ -9,14 +9,15 @@ Classrooms.allow({
     }
 });
 
+// TODO Add a student ID
 Student = new SimpleSchema({
     first_name: {
         type: String,
-        label: 'First Name'
+        label: 'first_name'
     },
     last_name: {
         type: String,
-        label: 'Last Name'
+        label: 'last_name'
     },
     title: {
         type: String,

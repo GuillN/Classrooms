@@ -1,8 +1,22 @@
 <template name="Classroom">
-    <h1>{{classroom.name}}</h1>
-    <p>
-        {{#each classroom.students}}
-        <span class="student">{{students.first_name}}</span>
-        {{/each}}
-    </p>
+    <div class="classroom-container">
+        <section class="student-list">
+
+            <h1><a href="/classroom/{{classroom._id}}/edit">{{classroom.name}}</a></h1>
+            <ul>
+                {{#each classroom.students}}
+                <li class="student"><a href="/classroom/{{classroom._id}}/student/{{last_name}}">{{first_name}} {{last_name}} {{title}}</a></li>
+                {{/each}}
+            </ul>
+        </section>
+        <section class="action-buttons">
+            <h2>Travail</h2>
+            <a href="#" id="noWork" class="btn">Non fait</a>
+            <a href="#" id="badWork" class="btn">Mal fait</a>
+            <h2>Comportement</h2>
+            <a href="#" id="goodBehaviour" class="btn">Participe</a>
+            <a href="#" id="badBehaviour" class="btn">Turbulent</a>
+            <a href="#" id="sleeping" class="btn">Endormi</a>
+        </section>
+    </div>
 </template>
