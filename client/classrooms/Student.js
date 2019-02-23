@@ -21,14 +21,5 @@ Template.Student.helpers({
                 return classroom.students[i]
             }
         }
-        Meteor.call('student', function (err, data) {
-            if (err) {
-                // handle err
-            } else {
-                console.log('Got student data: ' + JSON.stringify(data));
-                Session.set('studentData', data);
-            }
-        });
-        return Session.get('studentData')
     }
 });

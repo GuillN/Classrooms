@@ -23,3 +23,12 @@ Template.ClassroomEdit.helpers({
         }
     }*/
 });
+
+Template.ClassroomEdit.events({
+    'click #delete': function () {
+        console.log('Delete classroom');
+        const id = FlowRouter.getParam('id');
+        Classrooms.remove({_id: id});
+        FlowRouter.go('classrooms')
+    }
+});

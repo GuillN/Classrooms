@@ -7,6 +7,9 @@ Classrooms = new Mongo.Collection('classrooms');
 Classrooms.allow({
     insert: function (userId, doc) {
         return !!userId
+    },
+    remove: function (userId, doc) {
+        return !!userId
     }
 });
 
