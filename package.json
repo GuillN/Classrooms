@@ -11,6 +11,8 @@
     "@babel/runtime": "^7.1.5",
     "bcrypt": "^3.0.3",
     "meteor-node-stubs": "^0.4.1",
-    "simpl-schema": "^1.5.5"
+    "mongoose": "^5.4.15",
+    "simpl-schema": "^1.5.5",
+    "uniqid": "^5.0.3"
   }
 }

@@ -1,4 +1,5 @@
 import SimpleSchema from 'simpl-schema';
+const uniqid = require('uniqid');
 SimpleSchema.extendOptions(['autoform']);
 
 Classrooms = new Mongo.Collection('classrooms');
@@ -9,15 +10,23 @@ Classrooms.allow({
     }
 });
 
-// TODO Add a student ID
 Student = new SimpleSchema({
+    _id: {
+        type: String,
+        autoform: {
+            type: 'hidden'
+        },
+        autoValue: function () {
+            return uniqid()
+        }
+    },
     first_name: {
         type: String,
-        label: 'first_name'
+        label: 'First Name'
     },
     last_name: {
         type: String,
-        label: 'last_name'
+        label: 'Last Name'
     },
     title: {
         type: String,

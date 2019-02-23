@@ -15,6 +15,7 @@ Meteor.publish('student', function (id, name) {
     check(name, String);
     console.log(`Searching for the student ${name} from class ${id}`);
     const classroom = Classrooms.findOne(id);
+    console.log(`Classroom found: ${JSON.stringify(classroom)}`);
     const selector = {last_name: {$in: classroom.students}};
     const options = {fields: {last_name: name}};
 
