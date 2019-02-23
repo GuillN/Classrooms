@@ -9,19 +9,16 @@ Meteor.publish('classroom', function (id) {
     return Classrooms.find({_id: id})
 });
 
-// TODO Get student from MongoDB
-Meteor.publish('student', function (id, name) {
+Meteor.methods({'student': function (id, studentId) {
     console.log(`Publish 'student' triggered`);
-    check(name, String);
-    console.log(`Searching for the student ${name} from class ${id}`);
+    check(studentId, String);
+    console.log(`Searching for the student ${studentId} from class ${id}`);
     const classroom = Classrooms.findOne(id);
     console.log(`Classroom found: ${JSON.stringify(classroom)}`);
-    const selector = {last_name: {$in: classroom.students}};
-    const options = {fields: {last_name: name}};
-
-    // console.log(`Result: ${result}`);
-    // console.log(`Result.first_name: ${result.first_name}`);
-    // console.log(`Result.last_name: ${result.last_name}`);
-    // console.log(`Result.stringify: ${JSON.stringify(result)}`);
-    return Meteor.users.find(selector,  options);
-});
+    for (let i = 0; i < classroom.students.length; i++) {
+        if (classroom.students[i]._id === studentId) {
+            console.log(`Student found: ${JSON.stringify(classroom.students[i])}`);
+            return classroom.students[i]
+        }
+    }
+}});

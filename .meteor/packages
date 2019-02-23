@@ -38,7 +38,7 @@ zimme:active-route
 gwendall:auth-client-callbacks
 aldeed:collection2-core@2.0.0
 aldeed:simple-schema
-meteortoys:allthings
+meteortoys:allthings@7.0.1
 datariot:ganalytics
 check
 session
