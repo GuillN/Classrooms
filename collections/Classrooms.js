@@ -10,11 +10,14 @@ Classrooms.allow({
     },
     remove: function (userId, doc) {
         return !!userId
+    },
+    update: function (userId, doc) {
+        return true
     }
 });
 
 Student = new SimpleSchema({
-    _id: {
+    studentId: {
         type: String,
         autoform: {
             type: 'hidden'
@@ -38,6 +41,13 @@ Student = new SimpleSchema({
         autoform: {
             type: 'hidden'
         }
+    },
+    selected: {
+        type: Boolean,
+        autoform: {
+            type: 'hidden'
+        },
+        defaultValue: false
     },
     behaviour: {
         type: Array,

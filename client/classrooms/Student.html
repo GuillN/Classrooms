@@ -1,4 +1,12 @@
 <template name="Student">
     <a href="/classroom/{{classroom._id}}" class="btn">Retour</a>
     <h1>{{student.first_name}} {{student.last_name}}</h1>
+    <h3>Travail</h3>
+    {{#each student.work}}
+
+    {{/each}}
+    <h3>Comportement</h3>
+    {{#each student.behaviour}}
+
+    {{/each}}
 </template>

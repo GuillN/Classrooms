@@ -1,9 +1,16 @@
+let selectedArray = [];
+
 Template.Classroom.onCreated(function (){
+    const id = FlowRouter.getParam('id');
+    console.log(selectedArray);
+    // Subscribe to classroom data
     const self = this;
     self.autorun(function (){
-        const id = FlowRouter.getParam('id');
         self.subscribe('classroom', id);
-    })
+    });
+    // All students from previous selection are unselected and array is blanked
+    Meteor.call('falseAll', selectedArray);
+    selectedArray = [];
 });
 
 Template.Classroom.helpers({
@@ -13,7 +20,6 @@ Template.Classroom.helpers({
     }
 });
 
-// TODO Student selector
 // TODO Link buttons to DB
 Template.Classroom.events({
     'click #noWork': function () {
@@ -22,7 +28,8 @@ Template.Classroom.events({
             date: new Date.now(),
             label: 'No Work',
             id: 0
-        }
+        };
+        Meteor.call('pushNoWork', selectedArray, noWork)
     },
     'click #badWork': function () {
         console.log('Bad work triggered');
@@ -55,5 +62,17 @@ Template.Classroom.events({
             label: 'sleeping',
             id: 4
         }
+    },
+    'click .fa-circle-o': function () {
+        // Add id to selected array
+        selectedArray.push(this.studentId);
+        Meteor.call('trueSelected', this.studentId);
+        console.log(selectedArray)
+    },
+    'click .fa-check-circle-o': function () {
+        // Remove id from selected array
+        selectedArray.splice(this.studentId);
+        Meteor.call('falseSelected', this.studentId);
+        console.log(selectedArray)
     }
 });

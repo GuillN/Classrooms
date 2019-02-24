@@ -16,7 +16,7 @@ Template.Student.helpers({
         const studentId = FlowRouter.getParam('studentId');
         const classroom = Classrooms.findOne(id);
         for (let i = 0; i < classroom.students.length; i++) {
-            if (classroom.students[i]._id === studentId) {
+            if (classroom.students[i].studentId === studentId) {
                 console.log(`Student found: ${JSON.stringify(classroom.students[i])}`);
                 return classroom.students[i]
             }
