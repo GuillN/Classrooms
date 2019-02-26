@@ -1,7 +1,7 @@
 <template name="Classrooms">
     {{#if Template.subscriptionsReady}}
         {{#if newClassroom}}
-            <a href="#" id="showNew">New Classroom</a>
+            <a href="#" id="showNew" class="btn">Nouvelle classe</a>
         {{else}}
             <section>
                 {{> NewClassroom}}
@@ -14,7 +14,7 @@
                 {{> ClassroomPreview}}
             {{/each}}
         {{else}}
-            <p>Loading</p>
+            <h2>Chargement</h2>
         {{/if}}
     </section>
 </template>

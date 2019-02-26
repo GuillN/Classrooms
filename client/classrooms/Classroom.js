@@ -8,10 +8,31 @@ Template.Classroom.onCreated(function (){
     self.autorun(function (){
         self.subscribe('classroom', id);
     });
+    clearSelection();
+});
+
+clearSelection = function() {
     // All students from previous selection are unselected and array is blanked
     Meteor.call('falseAll', selectedArray);
     selectedArray = [];
-});
+};
+
+getCurrentDate = function() {
+    const today = new Date();
+    let dd = today.getDate();
+    let mm = today.getMonth() + 1;
+    const yyyy = today.getFullYear();
+    if (dd < 10) {
+        dd = '0' + dd;
+    }
+    if (mm < 10) {
+        mm = '0' + mm;
+    }
+    const hh = today.getHours();
+    const min = today.getMinutes();
+
+    return dd + '/' + mm + '/' + yyyy + " " + hh + "h" + min;
+};
 
 Template.Classroom.helpers({
     classroom: () => {
@@ -20,49 +41,59 @@ Template.Classroom.helpers({
     }
 });
 
-// TODO Link buttons to DB
 Template.Classroom.events({
+    // Actions functions
     'click #noWork': function () {
         console.log('No work triggered');
         const noWork = {
-            date: new Date.now(),
-            label: 'No Work',
+            date: getCurrentDate(),
+            label: 'Pas fait',
             id: 0
         };
-        Meteor.call('pushNoWork', selectedArray, noWork)
+        Meteor.call('pushWork', selectedArray, noWork);
+        clearSelection()
     },
     'click #badWork': function () {
         console.log('Bad work triggered');
         const badWork = {
-            date: new Date.now(),
-            label: 'Bad Work',
+            date: getCurrentDate(),
+            label: 'Mal fait',
             id: 1
-        }
+        };
+        Meteor.call('pushWork', selectedArray, badWork);
+        clearSelection()
     },
     'click #goodBehaviour': function () {
         console.log('Good behaviour triggered');
         const goodBehaviour = {
-            date: new Date.now(),
-            label: 'Good Behaviour',
+            date: getCurrentDate(),
+            label: 'Participe',
             id: 2
-        }
+        };
+        Meteor.call('pushBehaviour', selectedArray, goodBehaviour);
+        clearSelection()
     },
     'click #badBehaviour': function () {
         console.log('Bad behaviour triggered');
         const badBehaviour = {
-            date: new Date.now(),
-            label: 'Bad Behaviour',
+            date: getCurrentDate(),
+            label: 'Turbulent',
             id: 3
-        }
+        };
+        Meteor.call('pushBehaviour', selectedArray, badBehaviour);
+        clearSelection()
     },
     'click #sleeping': function () {
         console.log('Sleeping triggered');
         const sleeping = {
-            date: new Date.now(),
-            label: 'sleeping',
+            date: getCurrentDate(),
+            label: 'Endormi',
             id: 4
-        }
+        };
+        Meteor.call('pushBehaviour', selectedArray, sleeping);
+        clearSelection()
     },
+    // Selection functions
     'click .fa-circle-o': function () {
         // Add id to selected array
         selectedArray.push(this.studentId);

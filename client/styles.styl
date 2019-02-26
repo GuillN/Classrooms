@@ -125,6 +125,8 @@ p
     margin-top 40px
     padding-left $side-nav-large
 
+#showNew
+
 .new-classroom
   margin-bottom 20px
 
@@ -153,6 +155,10 @@ p
 
 .student-list
   width 50%
+  h1
+    a
+      text-decoration none
+      color purp
 
 .action-buttons
   width 50%
@@ -169,6 +175,35 @@ p
   padding-top 15px
   padding-right 15px
 
+.student
+  a
+    text-decoration none
+    color black
+
+.student-selected
+  a
+    text-decoration none
+    color purp
+    font-style italic
+
+.student-content
+  display: flex
+  flex-direction row
+  justify-content: flex-start;
+
+.work
+  padding-right: 15%;
+
+table, th, td
+  border 1px solid purp
+
+th, td
+  padding 5px
+
+th
+  background purp
+  color white
+
 .btn, button
   display inline-block
   cursor pointer
@@ -183,6 +218,7 @@ p
   shadow-level(1)
   trans()
   &:hover
+    text-decoration none
     background @background - 20
     border-color @background
     shadow-level(2)
@@ -192,50 +228,6 @@ p
     color dark-purp
     &:hover
       background @background - 40
-      border-color @background
-  &.btn-deny
-    background red
-    border solid 3px @background
-    &:hover
-      background @background - 20
-      border-color @background
-  &.btn-text
-    color purp
-    background transparent
-    border solid 2px purp
-    shadow-level(0)
-    &:hover
-      background teal
-      border-color @background
-      shadow-level(1)
-  &.btn-text-dark
-    color #FFF
-    background transparent
-    border solid 2px #FFF
-    shadow-level(0)
-    &:hover
-      background #FFF
-      color dark-purp
-      border-color @background
-      shadow-level(1)
-  &.btn-confirmation
-    color black
-    background green
-    border solid 2px @background
-    &:hover
-      background @background - 20
-      border-color dark-purp
-  &.btn-cancel
-    color #FFF
-    background transparent
-    border solid 2px #FFF
-    opacity 0.4
-    shadow-level(-1)
-    &:hover
-      background red
-      color #FFF
-      opacity 1
-      shadow-level(2)
       border-color @background
 
 input, select, textarea
@@ -257,7 +249,8 @@ input, select, textarea
 
 .panel-body
   .form-group
-    lost-column 1/2
+    lost-column 1/2.1
+    padding 0 10px 0 10px
 
 .autoform-remove-item.btn
   background light-grey
@@ -332,53 +325,22 @@ input, select, textarea
 
 .classroom
   background #FFF
-  padding 0 20px 20px
+  padding 10px 0 10px 20px
   margin-bottom 20px
   position relative
   z-index 1
   shadow-level(1)
   trans()
-  .remove-from-menu
-    display none
-  &.in-menu
-    background teal
-    color #FFF
-    h3
-      border-bottom: rgba(255,255,255, 0.6) solid 3px
-    .add-to-menu
-      display none
-    .remove-from-menu
-      display block
   h3
     font-size: 3em;
-    opacity: 0.3;
-    //border-bottom: rgba(0,0,0, 0.3) solid 3px
     margin-top 0
-    margin-bottom 10px
-  button
-    margin-top 20px
-  .fa-trash
-    opacity 0.3
-    cursor pointer
-    position absolute
-    top 0
-    right 0
-    font-size 1.6em
-    display block
-    padding 20px
-    color black
-    trans()
-    &:hover
-     color red
-     opacity 0.6
-  .student
-    display inline-block
-    margin-right 10px
-    font-size 1.2 em
+    margin-bottom 0
+  a
+    text-decoration none
+    color purp
   &:hover
     shadow-level(3)
 
-// animation card 0.6s ease 1 forwards
 @keyframes card
   0%
     transform translate3d(0, 0, 0)
@@ -391,21 +353,6 @@ input, select, textarea
     z-index 10
     transform translate3d(0, 0, 0)
 
-
-.menu-item
-  @extend .classroom
-
-.shopping-list
-  @extend .classroom
-  padding 50px 5%
-  list-style none
-  li
-    font-size 2em
-    padding 20px
-    border-bottom 1px solid light-grey
-    border-top 1px solid light-grey
-    & + li
-      border-top none
 
 .login-buttons-dropdown-align-
   #login-dropdown-list

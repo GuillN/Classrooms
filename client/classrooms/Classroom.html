@@ -1,12 +1,11 @@
 <template name="Classroom">
     <div class="classroom-container">
         <section class="student-list">
-
             <h1><a href="/classroom/{{classroom._id}}/edit">{{classroom.name}}</a></h1>
             {{#each classroom.students}}
             <div class="list-elements">
                 <i class="fa fa-{{#if selected}}check-{{/if}}circle-o"></i>
-                <p class="student"><a href="/classroom/{{classroom._id}}/student/{{studentId}}">{{first_name}} {{last_name}} {{title}}</a></p>
+                <p class="student{{#if selected}}-selected{{/if}}"><a href="/classroom/{{classroom._id}}/student/{{studentId}}">{{first_name}} {{last_name}} {{title}}</a></p>
             </div>
             {{/each}}
         </section>

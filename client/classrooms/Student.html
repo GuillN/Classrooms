@@ -1,12 +1,44 @@
 <template name="Student">
     <a href="/classroom/{{classroom._id}}" class="btn">Retour</a>
     <h1>{{student.first_name}} {{student.last_name}}</h1>
-    <h3>Travail</h3>
-    {{#each student.work}}
-
-    {{/each}}
-    <h3>Comportement</h3>
-    {{#each student.behaviour}}
-
-    {{/each}}
+    <section class="student-content">
+        <section class="work">
+            <h2>Travail</h2>
+            {{#if student.work}}
+            <table>
+                <tr>
+                    <th>Label</th>
+                    <th>Date</th>
+                </tr>
+                {{#each student.work}}
+                <tr>
+                    <td>{{label}}</td>
+                    <td>{{date}}</td>
+                </tr>
+                {{/each}}
+            </table>
+            {{else}}
+            <h3>Du bon travail</h3>
+            {{/if}}
+        </section>
+        <section class="behaviour">
+            <h2>Comportement</h2>
+            {{#if student.behaviour}}
+            <table>
+                <tr>
+                    <th>Label</th>
+                    <th>Date</th>
+                </tr>
+                {{#each student.behaviour}}
+                <tr>
+                    <td>{{label}}</td>
+                    <td>{{date}}</td>
+                </tr>
+                {{/each}}
+            </table>
+            {{else}}
+            <h3>Pas de comportement particulier</h3>
+            {{/if}}
+        </section>
+    </section>
 </template>

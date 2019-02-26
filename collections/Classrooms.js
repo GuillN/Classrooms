@@ -16,6 +16,19 @@ Classrooms.allow({
     }
 });
 
+WorkElement = new SimpleSchema({
+    id: {
+        type: Number
+    },
+    label: {
+        type: String
+    },
+    date: {
+        type: String
+    }
+});
+
+// Todo change title String to Number
 Student = new SimpleSchema({
     studentId: {
         type: String,
@@ -28,11 +41,11 @@ Student = new SimpleSchema({
     },
     first_name: {
         type: String,
-        label: 'First Name'
+        label: 'Prénom'
     },
     last_name: {
         type: String,
-        label: 'Last Name'
+        label: 'Nom'
     },
     title: {
         type: String,
@@ -57,7 +70,7 @@ Student = new SimpleSchema({
         }
     },
     'behaviour.$': {
-        type: String
+        type: WorkElement
     },
     work: {
         type: Array,
@@ -67,17 +80,18 @@ Student = new SimpleSchema({
         }
     },
     'work.$': {
-        type: String
+        type: WorkElement
     }
 });
 
 ClassroomSchema = new SimpleSchema({
     name: {
         type: String,
-        label: 'Name'
+        label: 'Nom de la classe'
     },
     students: {
-        type: Array
+        type: Array,
+        label: 'Élèves'
     },
     'students.$': {
         type: Student
