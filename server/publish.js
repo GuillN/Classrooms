@@ -56,28 +56,32 @@ setTitle = function (id) {
             console.log(student);
             let workPoints = 0, behavPoints = 0, sleepPoints = 0;
             let bad, good, sleep;
-            for (let i = 0; i < student.work.length; i++) {
-                const elem = student.work[i];
-                if (elem.id === 0) {
-                    workPoints -= 2;
-                }
-                if (elem.id === 1) {
-                    workPoints -= 1;
-                }
+            if (student.work) {
+                for (let i = 0; i < student.work.length; i++) {
+                    const elem = student.work[i];
+                    if (elem.id === 0) {
+                        workPoints -= 2;
+                    }
+                    if (elem.id === 1) {
+                        workPoints -= 1;
+                    }
 
+                }
             }
-            for (let i = 0; i < student.behaviour.length; i++) {
-                const elem = student.behaviour[i];
-                if (elem.id === 2) {
-                    behavPoints += 1;
-                }
-                if (elem.id === 3) {
-                    behavPoints -= 1;
-                }
-                if (elem.id === 4) {
-                    sleepPoints += 1;
-                }
+            if (student.behaviour) {
+                for (let i = 0; i < student.behaviour.length; i++) {
+                    const elem = student.behaviour[i];
+                    if (elem.id === 2) {
+                        behavPoints += 1;
+                    }
+                    if (elem.id === 3) {
+                        behavPoints -= 1;
+                    }
+                    if (elem.id === 4) {
+                        sleepPoints += 1;
+                    }
 
+                }
             }
             if (workPoints < -6) {
                 bad = true;
