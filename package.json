@@ -14,5 +14,8 @@
     "mongoose": "^5.4.15",
     "simpl-schema": "^1.5.5",
     "uniqid": "^5.0.3"
+  },
+  "engines": {
+    "node": "8.11.0"
   }
 }
