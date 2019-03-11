@@ -8,6 +8,20 @@ Meteor.publish('classroom', function (id) {
     return Classrooms.find({_id: id})
 });
 
+Meteor.methods({'editName': function (id, name) {
+        return Classrooms.update({'_id': id}, {$set: {'name': name}})
+    }
+});
+
+Meteor.methods({'editFirst': function (studentId, name) {
+        return Classrooms.update({'students.studentId': studentId}, {$set: {'students.$.first_name': name}})
+    }
+});
+Meteor.methods({'editLast': function (studentId, name) {
+        return Classrooms.update({'students.studentId': studentId}, {$set: {'students.$.last_name': name}})
+    }
+});
+
 Meteor.methods({'trueSelected': function (studentId) {
         return Classrooms.update({'students.studentId': studentId}, {$set: {'students.$.selected': true}})
     }

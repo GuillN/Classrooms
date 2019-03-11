@@ -1,10 +1,15 @@
 <template name="ClassroomEdit">
-    <a href="/classroom/{{classroom._id}}" class="btn">Retour</a>
-    <a href="#" id="delete" class="btn">Supprimer</a>
-    <h1>{{classroom.name}} - Edit</h1>
-    {{#each classroom.students}}
-        <!--<p>{{first_name}} {{last_name}}</p>-->
-        <!--TODO Inline editing-->
-        <p>{{> editableText collection="classrooms" field="first_name" options=postOptions}} {{> editableText collection="classrooms" field="last_name"}}</p>
-    {{/each}}
+    {{#if Template.subscriptionsReady}}
+        <a href="/classroom/{{classroom._id}}" class="btn">Retour</a>
+        <a href="#" id="delete" class="btn">Supprimer</a>
+        <h1><input value={{classroom.name}} class="edit-name"> - Edit</h1>
+        {{#each classroom.students}}
+            <div class="edit-inputs">
+                <input value={{first_name}} class="edit-first">
+                <input value={{last_name}} class="edit-last">
+            </div>
+        {{/each}}
+    {{else}}
+        <h2>Chargement</h2>
+    {{/if}}
 </template>
