@@ -35,7 +35,7 @@ accounts-ui
 accounts-password
 matb33:bootstrap-glyphicons
 zimme:active-route
-gwendall:auth-client-callbacks
+#gwendall:auth-client-callbacks
 aldeed:collection2-core@2.0.0
 aldeed:simple-schema
 meteortoys:allthings@7.0.1
