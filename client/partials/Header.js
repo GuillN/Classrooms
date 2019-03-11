@@ -3,16 +3,18 @@ Template.Header.events({
         console.log('Log out');
         setTimeout(
             () => {
+                console.log(`let's go home`);
                 FlowRouter.go('home')
-            }, 200
+            }, 1000
         );
     },
     'click #login-buttons-password': function (event) {
         console.log('Log in');
         setTimeout(
             () => {
+                console.log(`let's go in`);
                 FlowRouter.go('classrooms')
-            }, 200
+            }, 1200
         );
     }
 });
