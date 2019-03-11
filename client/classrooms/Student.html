@@ -2,6 +2,7 @@
     <a href="/classroom/{{classroom._id}}" class="btn">Retour</a>
     <h1>{{student.first_name}} {{student.last_name}}</h1>
     <section class="student-content">
+        {{#if Template.subscriptionsReady}}
         <section class="work">
             <h2>Travail</h2>
             {{#if student.work}}
@@ -40,5 +41,8 @@
             <h3>Pas de comportement particulier</h3>
             {{/if}}
         </section>
+        {{else}}
+        <h2>Chargement</h2>
+        {{/if}}
     </section>
 </template>

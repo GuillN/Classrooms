@@ -1,7 +1,6 @@
 <template name="NewClassroom">
     <div class="new-classroom-container">
         <a href="#" id="hideNew" class="btn" style="margin-bottom: 10px">Hide</a>
-        <!--Todo hide new classroom after submit-->
         {{> quickForm collection="Classrooms" type="insert" id="insertClassroomForm" class="new-classroom-form" omitFields="teacher"}}
     </div>
 </template>
