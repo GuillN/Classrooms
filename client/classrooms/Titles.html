@@ -17,7 +17,7 @@
         </ul>
         <ul>
             {{#each sleepTitles}}
-            <li class="title-green">
+            <li class="title-green{{#if taken}}-dash{{/if}}">
                 {{label}}
             </li>
             {{/each}}
