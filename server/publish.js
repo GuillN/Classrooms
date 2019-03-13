@@ -8,6 +8,10 @@ Meteor.publish('classroom', function (id) {
     return Classrooms.find({_id: id})
 });
 
+Meteor.publish('titles', function () {
+    return Titles.find({teacher: this.userId})
+});
+
 Meteor.methods({'editName': function (id, name) {
         return Classrooms.update({'_id': id}, {$set: {'name': name}})
     }
@@ -61,7 +65,6 @@ Meteor.methods({'pushBehaviour': function (idArray, element) {
     }
 });
 
-// Todo change title String to Number
 setTitle = function (id) {
     let classroom = Classrooms.findOne({'students.studentId': id});
     for (let i = 0; i < classroom.students.length; i++) {
@@ -69,7 +72,7 @@ setTitle = function (id) {
             let student = classroom.students[i];
             console.log(student);
             let workPoints = 0, behavPoints = 0, sleepPoints = 0;
-            let bad, good, sleep;
+            let bad = false, good = false, sleep = false;
             if (student.work) {
                 for (let i = 0; i < student.work.length; i++) {
                     const elem = student.work[i];
@@ -79,7 +82,6 @@ setTitle = function (id) {
                     if (elem.id === 1) {
                         workPoints -= 1;
                     }
-
                 }
             }
             if (student.behaviour) {
@@ -99,19 +101,36 @@ setTitle = function (id) {
             }
             if (workPoints < -6) {
                 bad = true;
-                return 'Le Lâche'
             }
             if (behavPoints > 6) {
                 good = true;
-                return 'Le Bon'
             }
             if (behavPoints < -6) {
                 bad = true;
-                return 'Le Relou'
             }
             if (sleepPoints >= 3) {
                 sleep = true;
-                return `L'endormi`
+            }
+            if (bad) {
+                const title = Titles.findOne({teacher: this.userId, category: 'Bad', taken: false});
+                const label = title.label;
+                Titles.update({teacher: this.userId, label: label}, {$set: {taken: true}});
+                console.log(title);
+                return label
+            }
+            else if (good) {
+                const title = Titles.findOne({teacher: this.userId, category: 'Good', taken: false});
+                const label = title.label;
+                Titles.update({teacher: this.userId, label: label}, {$set: {taken: true}});
+                console.log(title);
+                return label
+            }
+            else if (sleep) {
+                const title = Titles.findOne({teacher: this.userId, category: 'Sleep', taken: false});
+                const label = title.label;
+                Titles.update({teacher: this.userId, label: label}, {$set: {taken: true}});
+                console.log(title);
+                return label
             }
             else{
                 return ''

@@ -1,0 +1,26 @@
+<template name="Titles">
+    {{> quickForm collection="Titles" type="insert" id="insertTitleForm" class="new-title-form" omitFields="teacher, taken"}}
+    <section class="title-list">
+        <ul>
+            {{#each goodTitles}}
+            <li class="title-blue">
+                {{label}}
+            </li>
+            {{/each}}
+        </ul>
+        <ul>
+            {{#each badTitles}}
+            <li class="title-red">
+                {{label}}
+            </li>
+            {{/each}}
+        </ul>
+        <ul>
+            {{#each sleepTitles}}
+            <li class="title-green">
+                {{label}}
+            </li>
+            {{/each}}
+        </ul>
+    </section>
+</template>

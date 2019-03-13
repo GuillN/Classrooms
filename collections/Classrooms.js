@@ -28,7 +28,6 @@ WorkElement = new SimpleSchema({
     }
 });
 
-// Todo change title String to Number
 Student = new SimpleSchema({
     studentId: {
         type: String,
