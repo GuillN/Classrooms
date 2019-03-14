@@ -3,14 +3,14 @@
     <section class="title-list">
         <ul>
             {{#each goodTitles}}
-            <li class="title-blue">
+            <li class="title-blue{{#if taken}}-dash{{/if}}">
                 {{label}}
             </li>
             {{/each}}
         </ul>
         <ul>
             {{#each badTitles}}
-            <li class="title-red">
+            <li class="title-red{{#if taken}}-dash{{/if}}">
                 {{label}}
             </li>
             {{/each}}

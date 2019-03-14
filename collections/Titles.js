@@ -17,11 +17,13 @@ Titles.allow({
 
 Title = new SimpleSchema({
     label: {
-        type: String
+        type: String,
+        label: 'Nom'
     },
     category: {
         type: String,
-        allowedValues: ['Good', 'Bad', 'Sleep']
+        label: 'Catégorie',
+        allowedValues: ['Bon', 'Mauvais', 'Passif']
     },
     taken: {
         type: Boolean,

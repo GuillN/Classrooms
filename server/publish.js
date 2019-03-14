@@ -112,21 +112,21 @@ setTitle = function (id) {
                 sleep = true;
             }
             if (bad) {
-                const title = Titles.findOne({teacher: this.userId, category: 'Bad', taken: false});
+                const title = Titles.findOne({teacher: this.userId, category: 'Mauvais', taken: false});
                 const label = title.label;
                 Titles.update({teacher: this.userId, label: label}, {$set: {taken: true}});
                 console.log(title);
                 return label
             }
             else if (good) {
-                const title = Titles.findOne({teacher: this.userId, category: 'Good', taken: false});
+                const title = Titles.findOne({teacher: this.userId, category: 'Bon', taken: false});
                 const label = title.label;
                 Titles.update({teacher: this.userId, label: label}, {$set: {taken: true}});
                 console.log(title);
                 return label
             }
             else if (sleep) {
-                const title = Titles.findOne({teacher: this.userId, category: 'Sleep', taken: false});
+                const title = Titles.findOne({teacher: this.userId, category: 'Passif', taken: false});
                 const label = title.label;
                 Titles.update({teacher: this.userId, label: label}, {$set: {taken: true}});
                 console.log(title);

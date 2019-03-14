@@ -7,13 +7,13 @@ Template.Titles.onCreated(function () {
 
 Template.Titles.helpers({
     goodTitles: () => {
-        return Titles.find({category: 'Good'})
+        return Titles.find({category: 'Bon'})
     },
     badTitles: () => {
-        return Titles.find({category: 'Bad'})
+        return Titles.find({category: 'Mauvais'})
     },
     sleepTitles: () => {
-        return Titles.find({category: 'Sleep'})
+        return Titles.find({category: 'Passif'})
     }
 });
 
