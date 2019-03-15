@@ -14,6 +14,7 @@ Template.Classroom.onCreated(function (){
 clearSelection = function() {
     // All students from previous selection are unselected and array is blanked
     Meteor.call('falseAll', selectedArray);
+    Session.set('allSelected', false);
     selectedArray = [];
 };
 
@@ -38,6 +39,9 @@ Template.Classroom.helpers({
     classroom: () => {
         const id = FlowRouter.getParam('id');
         return Classrooms.findOne({_id: id})
+    },
+    allSelected: () => {
+        return Session.get('allSelected')
     }
 });
 
@@ -94,16 +98,46 @@ Template.Classroom.events({
         clearSelection()
     },
     // Selection functions
-    'click .fa-circle-o': function () {
+    'click .list-elements>.fa-circle-o': function () {
         // Add id to selected array
+        console.log('Select one triggered');
         selectedArray.push(this.studentId);
         Meteor.call('trueSelected', this.studentId);
         console.log(selectedArray)
     },
-    'click .fa-check-circle-o': function () {
+    'click .list-elements>.fa-check-circle-o': function () {
         // Remove id from selected array
-        selectedArray.splice(this.studentId);
+        console.log('Deselect one triggered');
+        const index = selectedArray.indexOf(this.studentId);
+        selectedArray.splice(index, 1);
         Meteor.call('falseSelected', this.studentId);
+        Session.set('allSelected', false);
         console.log(selectedArray)
+    },
+    'click .first-element>.fa-circle-o': function () {
+        console.log('Select all triggered');
+        const id = FlowRouter.getParam('id');
+        const classroom = Classrooms.findOne({_id: id});
+        Session.set('allSelected', true);
+        for (let i = 0; i < classroom.students.length; i++) {
+            // if (!selectedArray.includes(classroom.students[i].studentId)) {
+                selectedArray.push(classroom.students[i].studentId);
+                Meteor.call('trueSelected', classroom.students[i].studentId);
+            // }
+        }
+        console.log(selectedArray);
+    },
+    'click .first-element>.fa-check-circle-o': function () {
+        console.log('Deselect all triggered');
+        const id = FlowRouter.getParam('id');
+        const classroom = Classrooms.findOne({_id: id});
+        Session.set('allSelected', false);
+        for (let i = 0; i < classroom.students.length; i++) {
+            // if (!selectedArray.includes(classroom.students[i].studentId)) {
+            selectedArray.splice(classroom.students[i].studentId);
+            Meteor.call('falseSelected', classroom.students[i].studentId);
+            // }
+        }
+        console.log(selectedArray);
     }
 });

@@ -111,30 +111,101 @@ setTitle = function (id) {
             if (sleepPoints >= 3) {
                 sleep = true;
             }
+            const previousTitle = student.title;
+            let label;
             if (bad) {
-                const title = Titles.findOne({teacher: this.userId, category: 'Mauvais', taken: false});
-                const label = title.label;
-                Titles.update({teacher: this.userId, label: label}, {$set: {taken: true}});
-                console.log(title);
+                if (previousTitle !== undefined && previousTitle !== 'Mauvais titre manquant') {
+                    const realPreviousTitle = Titles.findOne({teacher: this.userId, label: previousTitle});
+                    if (realPreviousTitle.category === 'Mauvais') {
+                        return previousTitle
+                    } else {
+                        label = findBadTitle();
+                        // remove taken
+                        Titles.update({teacher: this.userId, label: previousTitle}, {$set: {taken: false}})
+                    }
+                } else {
+                    label = findBadTitle()
+                }
                 return label
             }
             else if (good) {
-                const title = Titles.findOne({teacher: this.userId, category: 'Bon', taken: false});
-                const label = title.label;
-                Titles.update({teacher: this.userId, label: label}, {$set: {taken: true}});
-                console.log(title);
+                if (previousTitle !== undefined && previousTitle !== 'Bon titre manquant') {
+                    const realPreviousTitle = Titles.findOne({teacher: this.userId, label: previousTitle});
+                    if (realPreviousTitle.category === 'Bon') {
+                        return previousTitle
+                    } else {
+                        label = findGoodTitle();
+                        // remove taken
+                        Titles.update({teacher: this.userId, label: previousTitle}, {$set: {taken: false}})
+                    }
+                } else {
+                    label = findGoodTitle()
+                }
                 return label
             }
             else if (sleep) {
-                const title = Titles.findOne({teacher: this.userId, category: 'Passif', taken: false});
-                const label = title.label;
-                Titles.update({teacher: this.userId, label: label}, {$set: {taken: true}});
-                console.log(title);
+                if (previousTitle !== undefined && previousTitle !== 'Titre passif manquant') {
+                    const realPreviousTitle = Titles.findOne({teacher: this.userId, label: previousTitle});
+                    if (realPreviousTitle.category === 'Passif') {
+                        return previousTitle
+                    } else {
+                        label = findSleepTitle();
+                        // remove taken
+                        Titles.update({teacher: this.userId, label: previousTitle}, {$set: {taken: false}})
+                    }
+                } else {
+                    label = findSleepTitle()
+                }
                 return label
             }
             else{
+                if (previousTitle !== undefined && previousTitle !== 'Titre passif manquant' && previousTitle !== 'Bon titre manquant' && previousTitle !== 'Mauvais titre manquant') {
+                    const realPreviousTitle = Titles.findOne({teacher: this.userId, label: previousTitle});
+                    label = '';
+                    // remove taken
+                    Titles.update({teacher: this.userId, label: previousTitle}, {$set: {taken: false}})
+                }
                 return ''
             }
         }
     }
+};
+
+findBadTitle = function () {
+    const title = Titles.findOne({teacher: this.userId, category: 'Mauvais', taken: false});
+    let label;
+    if (title === undefined) {
+        label = 'Mauvais titre manquant'
+    } else {
+        label = title.label
+    }
+    Titles.update({teacher: this.userId, label: label}, {$set: {taken: true}});
+    console.log(title);
+    return label
+};
+
+findGoodTitle = function () {
+    const title = Titles.findOne({teacher: this.userId, category: 'Bon', taken: false});
+    let label;
+    if (title === undefined) {
+        label = 'Bon titre manquant'
+    } else {
+        label = title.label
+    }
+    Titles.update({teacher: this.userId, label: label}, {$set: {taken: true}});
+    console.log(title);
+    return label
+};
+
+findSleepTitle = function () {
+    const title = Titles.findOne({teacher: this.userId, category: 'Passif', taken: false});
+    let label;
+    if (title === undefined) {
+        label = 'Titre passif manquant'
+    } else {
+        label = title.label
+    }
+    Titles.update({teacher: this.userId, label: label}, {$set: {taken: true}});
+    console.log(title);
+    return label
 };

@@ -1,7 +1,12 @@
 <template name="Classroom">
     <div class="classroom-container">
+        {{#if Template.subscriptionsReady}}
         <section class="student-list">
-            <h1><a href="/classroom/{{classroom._id}}/edit">{{classroom.name}}</a></h1>
+            <div class="first-element">
+                <i class="fa fa-{{#if allSelected}}check-{{/if}}circle-o" id="selectAll"></i>
+                <h1><a href="/classroom/{{classroom._id}}/edit">{{classroom.name}}</a></h1>
+            </div>
+
             {{#each classroom.students}}
             <div class="list-elements">
                 <i class="fa fa-{{#if selected}}check-{{/if}}circle-o"></i>
@@ -9,6 +14,9 @@
             </div>
             {{/each}}
         </section>
+        {{else}}
+        <h2>Chargement</h2>
+        {{/if}}
         <section class="action-buttons">
             <h2>Travail</h2>
             <a href="#" id="noWork" class="btn">Non fait</a>
