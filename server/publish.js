@@ -12,10 +12,42 @@ Meteor.publish('titles', function () {
     return Titles.find({teacher: this.userId})
 });
 
+Meteor.methods({'editTitle': function (id, name) {
+        return Titles.update({_id: id}, {$set: {label: name}})
+    }
+});
+
+Meteor.methods({'deleteTitle': function (id) {
+        return Titles.remove({_id: id})
+    }
+});
+
 Meteor.methods({'editName': function (id, name) {
         return Classrooms.update({'_id': id}, {$set: {'name': name}})
     }
 });
+
+Meteor.methods({'deleteClassroom': function (id) {
+        // Clear titles
+        const classroom = Classrooms.findOne({_id: id});
+        let titles = classroom.students.map(student => {
+            if (student.title) {
+                Classrooms.update({'students.studentId': student.studentId}, {$set: {'students.$.title': ''}});
+                return Titles.findOne({label: student.title})._id
+            } else {
+                return ' '
+            }
+        });
+        for (i in titles) {
+            if (titles[i] !== ' ') {
+                Titles.update({_id: titles[i]}, {$set: {taken: false}})
+            }
+        }
+
+        Classrooms.remove({_id: id});
+    }
+});
+
 
 Meteor.methods({'editFirst': function (studentId, name) {
         return Classrooms.update({'students.studentId': studentId}, {$set: {'students.$.first_name': name}})

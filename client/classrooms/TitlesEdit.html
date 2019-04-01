@@ -1,27 +1,30 @@
-<template name="Titles">
-    <a href="/titles/edit" class="btn" id="editTitles">Edit</a>
-    {{> quickForm collection="Titles" type="insert" id="insertTitleForm" class="new-title-form" omitFields="teacher, taken"}}
+<template name="TitlesEdit">
+    {{#if Template.subscriptionsReady}}
+    <a href="/titles" class="btn" id="returnTitles">Retour</a>
     <section class="title-list">
         <ul>
             {{#each goodTitles}}
             <li class="title-blue{{#if taken}}-dash{{/if}}">
-                {{label}}
+                <input value="{{label}}" class="edit-title"><i class="fa fa-trash"></i>
             </li>
             {{/each}}
         </ul>
         <ul>
             {{#each badTitles}}
             <li class="title-red{{#if taken}}-dash{{/if}}">
-                {{label}}
+                <input value="{{label}}" class="edit-title"><i class="fa fa-trash"></i>
             </li>
             {{/each}}
         </ul>
         <ul>
             {{#each sleepTitles}}
             <li class="title-green{{#if taken}}-dash{{/if}}">
-                {{label}}
+                <input value="{{label}}" class="edit-title"><i class="fa fa-trash"></i>
             </li>
             {{/each}}
         </ul>
     </section>
+    {{else}}
+    <h2>Chargement</h2>
+    {{/if}}
 </template>
