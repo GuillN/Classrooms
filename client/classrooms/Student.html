@@ -41,6 +41,14 @@
             <h3>Pas de comportement particulier</h3>
             {{/if}}
         </section>
+        {{#if student.needsTitle}}
+        <section>
+            <h2>Titres disponibles</h2>
+            {{#each titles}}
+                <p id="giveTitle">{{label}}</p>
+            {{/each}}
+        </section>
+        {{/if}}
         {{else}}
         <h2>Chargement</h2>
         {{/if}}

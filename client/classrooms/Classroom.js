@@ -42,6 +42,18 @@ Template.Classroom.helpers({
     },
     allSelected: () => {
         return Session.get('allSelected')
+    },
+    colorRed: (k) => {
+        a = 'Mauvais';
+        return a === k;
+    },
+    colorBlue: (k) => {
+        a = 'Bon';
+        return a === k;
+    },
+    colorGreen: (k) => {
+        a = 'Passif';
+        return a === k;
     }
 });
 
@@ -120,10 +132,10 @@ Template.Classroom.events({
         const classroom = Classrooms.findOne({_id: id});
         Session.set('allSelected', true);
         for (let i = 0; i < classroom.students.length; i++) {
-            // if (!selectedArray.includes(classroom.students[i].studentId)) {
+            if (!selectedArray.includes(classroom.students[i].studentId)) {
                 selectedArray.push(classroom.students[i].studentId);
                 Meteor.call('trueSelected', classroom.students[i].studentId);
-            // }
+            }
         }
         console.log(selectedArray);
     },
@@ -133,10 +145,8 @@ Template.Classroom.events({
         const classroom = Classrooms.findOne({_id: id});
         Session.set('allSelected', false);
         for (let i = 0; i < classroom.students.length; i++) {
-            // if (!selectedArray.includes(classroom.students[i].studentId)) {
             selectedArray.splice(classroom.students[i].studentId);
             Meteor.call('falseSelected', classroom.students[i].studentId);
-            // }
         }
         console.log(selectedArray);
     }

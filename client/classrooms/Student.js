@@ -3,6 +3,7 @@ Template.Student.onCreated(function (){
     self.autorun(function (){
         const id = FlowRouter.getParam('id');
         self.subscribe('classroom', id);
+        self.subscribe('titles')
     })
 });
 
@@ -17,9 +18,23 @@ Template.Student.helpers({
         const classroom = Classrooms.findOne(id);
         for (let i = 0; i < classroom.students.length; i++) {
             if (classroom.students[i].studentId === studentId) {
-                console.log(`Student found: ${JSON.stringify(classroom.students[i])}`);
+                Session.set('karma', classroom.students[i].karma);
+                Session.set('classroomId', classroom._id);
                 return classroom.students[i]
             }
         }
+    },
+    titles: () => {
+        const karma = Session.get('karma');
+        return Titles.find({category: karma, taken: false})
+    }
+});
+
+Template.Student.events({
+    'click #giveTitle': function () {
+        const id = Session.get('classroomId');
+        const studentId = FlowRouter.getParam('studentId');
+        Meteor.call('giveTitle', studentId, this.label);
+        FlowRouter.go('/classroom/'+id)
     }
 });

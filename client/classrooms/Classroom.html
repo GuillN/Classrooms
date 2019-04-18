@@ -10,7 +10,15 @@
             {{#each classroom.students}}
             <div class="list-elements">
                 <i class="fa fa-{{#if selected}}check-{{/if}}circle-o"></i>
-                <p class="student{{#if selected}}-selected{{/if}}"><a href="/classroom/{{classroom._id}}/student/{{studentId}}">{{first_name}} {{last_name}} {{title}}</a></p>
+                <p class="student{{#if selected}}-selected{{/if}}">
+                    <a href="/classroom/{{classroom._id}}/student/{{studentId}}">{{first_name}} {{last_name}}
+                        {{#if needsTitle}}
+                        <span class="student-title{{#if colorRed karma}}-red{{/if}}{{#if colorBlue karma}}-blue{{/if}}{{#if colorGreen karma}}-green{{/if}}">attribuer un titre</span>
+                        {{else}}
+                        <span class="student-title{{#if colorRed karma}}-red{{/if}}{{#if colorBlue karma}}-blue{{/if}}{{#if colorGreen karma}}-green{{/if}}">{{title}}</span>
+                        {{/if}}
+                    </a>
+                </p>
             </div>
             {{/each}}
         </section>

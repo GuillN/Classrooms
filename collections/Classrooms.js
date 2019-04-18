@@ -46,6 +46,13 @@ Student = new SimpleSchema({
         type: String,
         label: 'Nom'
     },
+    needsTitle: {
+        type: Boolean,
+        autoform: {
+            type: 'hidden'
+        },
+        defaultValue: false
+    },
     title: {
         type: String,
         label: 'Title',
@@ -80,6 +87,14 @@ Student = new SimpleSchema({
     },
     'work.$': {
         type: WorkElement
+    },
+    karma: {
+        type: String,
+        autoform: {
+            type: 'hidden'
+        },
+        allowedValues: ['', 'Bon', 'Mauvais', 'Passif'],
+        defaultValue: ''
     }
 });
 
@@ -100,6 +115,9 @@ ClassroomSchema = new SimpleSchema({
         label: 'Teacher',
         autoValue: function () {
             return this.userId
+        },
+        autoform: {
+            type: 'hidden'
         }
     }
 });

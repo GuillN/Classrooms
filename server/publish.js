@@ -43,7 +43,6 @@ Meteor.methods({'deleteClassroom': function (id) {
                 Titles.update({_id: titles[i]}, {$set: {taken: false}})
             }
         }
-
         Classrooms.remove({_id: id});
     }
 });
@@ -75,13 +74,19 @@ Meteor.methods({'falseAll': function (idArray) {
     }
 });
 
+Meteor.methods({'giveTitle': function (studentId, label) {
+        Titles.update({label: label}, {$set: {taken: true}});
+        Classrooms.update({'students.studentId': studentId}, {$set: {'students.$.title': label, 'students.$.needsTitle': false}})
+    }
+});
+
 Meteor.methods({'pushWork': function (idArray, element) {
         for (let i = 0; i < idArray.length; i++) {
             console.log(element);
-            Classrooms.update({'students.studentId': idArray[i]}, {$push: {'students.$.work': element}});
-            const title = setTitle(idArray[i]);
-            console.log(`Setting title: ${title}`);
-            Classrooms.update({'students.studentId': idArray[i]}, {$set: {'students.$.title': title}})
+            const id = idArray[i];
+            Classrooms.update({'students.studentId': id}, {$push: {'students.$.work': element}});
+            const karma = findKarma(id);
+            setKarma(karma, id)
         }
     }
 });
@@ -89,15 +94,15 @@ Meteor.methods({'pushWork': function (idArray, element) {
 Meteor.methods({'pushBehaviour': function (idArray, element) {
         for (let i = 0; i < idArray.length; i++) {
             console.log(element);
-            Classrooms.update({'students.studentId': idArray[i]}, {$push: {'students.$.behaviour': element}});
-            const title = setTitle(idArray[i]);
-            console.log(`Setting title: ${title}`);
-            Classrooms.update({'students.studentId': idArray[i]}, {$set: {'students.$.title': title}})
+            const id = idArray[i];
+            Classrooms.update({'students.studentId': id}, {$push: {'students.$.behaviour': element}});
+            const karma = findKarma(id);
+            setKarma(karma, id)
         }
     }
 });
 
-setTitle = function (id) {
+findKarma = function (id) {
     let classroom = Classrooms.findOne({'students.studentId': id});
     for (let i = 0; i < classroom.students.length; i++) {
         if (classroom.students[i].studentId === id) {
@@ -143,101 +148,29 @@ setTitle = function (id) {
             if (sleepPoints >= 3) {
                 sleep = true;
             }
-            const previousTitle = student.title;
             let label;
             if (bad) {
-                if (previousTitle !== undefined && previousTitle !== 'Mauvais titre manquant') {
-                    const realPreviousTitle = Titles.findOne({teacher: this.userId, label: previousTitle});
-                    if (realPreviousTitle.category === 'Mauvais') {
-                        return previousTitle
-                    } else {
-                        label = findBadTitle();
-                        // remove taken
-                        Titles.update({teacher: this.userId, label: previousTitle}, {$set: {taken: false}})
-                    }
-                } else {
-                    label = findBadTitle()
-                }
+                label = 'Mauvais';
                 return label
             }
             else if (good) {
-                if (previousTitle !== undefined && previousTitle !== 'Bon titre manquant') {
-                    const realPreviousTitle = Titles.findOne({teacher: this.userId, label: previousTitle});
-                    if (realPreviousTitle.category === 'Bon') {
-                        return previousTitle
-                    } else {
-                        label = findGoodTitle();
-                        // remove taken
-                        Titles.update({teacher: this.userId, label: previousTitle}, {$set: {taken: false}})
-                    }
-                } else {
-                    label = findGoodTitle()
-                }
+                label = 'Bon';
                 return label
             }
             else if (sleep) {
-                if (previousTitle !== undefined && previousTitle !== 'Titre passif manquant') {
-                    const realPreviousTitle = Titles.findOne({teacher: this.userId, label: previousTitle});
-                    if (realPreviousTitle.category === 'Passif') {
-                        return previousTitle
-                    } else {
-                        label = findSleepTitle();
-                        // remove taken
-                        Titles.update({teacher: this.userId, label: previousTitle}, {$set: {taken: false}})
-                    }
-                } else {
-                    label = findSleepTitle()
-                }
+                label = 'Passif';
                 return label
             }
             else{
-                if (previousTitle !== undefined && previousTitle !== 'Titre passif manquant' && previousTitle !== 'Bon titre manquant' && previousTitle !== 'Mauvais titre manquant') {
-                    const realPreviousTitle = Titles.findOne({teacher: this.userId, label: previousTitle});
-                    label = '';
-                    // remove taken
-                    Titles.update({teacher: this.userId, label: previousTitle}, {$set: {taken: false}})
-                }
                 return ''
             }
         }
     }
 };
 
-findBadTitle = function () {
-    const title = Titles.findOne({teacher: this.userId, category: 'Mauvais', taken: false});
-    let label;
-    if (title === undefined) {
-        label = 'Mauvais titre manquant'
-    } else {
-        label = title.label
-    }
-    Titles.update({teacher: this.userId, label: label}, {$set: {taken: true}});
-    console.log(title);
-    return label
-};
+setKarma = function (karma, id) {
+    if (karma === 'Mauvais' || karma === 'Bon' || karma === 'Passif') {
+        Classrooms.update({'students.studentId': id}, {$set: {'students.$.karma': karma, 'students.$.needsTitle': true}})
 
-findGoodTitle = function () {
-    const title = Titles.findOne({teacher: this.userId, category: 'Bon', taken: false});
-    let label;
-    if (title === undefined) {
-        label = 'Bon titre manquant'
-    } else {
-        label = title.label
     }
-    Titles.update({teacher: this.userId, label: label}, {$set: {taken: true}});
-    console.log(title);
-    return label
-};
-
-findSleepTitle = function () {
-    const title = Titles.findOne({teacher: this.userId, category: 'Passif', taken: false});
-    let label;
-    if (title === undefined) {
-        label = 'Titre passif manquant'
-    } else {
-        label = title.label
-    }
-    Titles.update({teacher: this.userId, label: label}, {$set: {taken: true}});
-    console.log(title);
-    return label
 };

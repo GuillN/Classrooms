@@ -18,9 +18,9 @@ Template.ClassroomEdit.events({
         console.log('Delete classroom');
         const id = FlowRouter.getParam('id');
         Meteor.call('deleteClassroom', id);
-        // FlowRouter.go('classrooms')
+        FlowRouter.go('classrooms')
     },
-    'keypress .edit-first': function (evt, template) {
+    'keypress .edit-first': function (evt) {
         if (evt.which === 13) {
             const name = evt.target.value;
             const id = this.studentId;
