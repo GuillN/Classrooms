@@ -29,6 +29,10 @@ Title = new SimpleSchema({
         type: Boolean,
         defaultValue: false
     },
+    gender: {
+        type: String,
+        allowedValues: ['Garçon', 'Fille']
+    },
     teacher: {
         type: String,
         label: 'Teacher',

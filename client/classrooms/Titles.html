@@ -3,21 +3,44 @@
     {{> quickForm collection="Titles" type="insert" id="insertTitleForm" class="new-title-form" omitFields="teacher, taken"}}
     <section class="title-list">
         <ul>
-            {{#each goodTitles}}
+            {{#each goodManTitles}}
             <li class="title-blue{{#if taken}}-dash{{/if}}">
                 {{label}}
             </li>
             {{/each}}
         </ul>
         <ul>
-            {{#each badTitles}}
+            {{#each badManTitles}}
             <li class="title-red{{#if taken}}-dash{{/if}}">
                 {{label}}
             </li>
             {{/each}}
         </ul>
         <ul>
-            {{#each sleepTitles}}
+            {{#each sleepManTitles}}
+            <li class="title-green{{#if taken}}-dash{{/if}}">
+                {{label}}
+            </li>
+            {{/each}}
+        </ul>
+    </section>
+    <section class="title-list">
+        <ul>
+            {{#each goodWomanTitles}}
+            <li class="title-blue{{#if taken}}-dash{{/if}}">
+                {{label}}
+            </li>
+            {{/each}}
+        </ul>
+        <ul>
+            {{#each badWomanTitles}}
+            <li class="title-red{{#if taken}}-dash{{/if}}">
+                {{label}}
+            </li>
+            {{/each}}
+        </ul>
+        <ul>
+            {{#each sleepWomanTitles}}
             <li class="title-green{{#if taken}}-dash{{/if}}">
                 {{label}}
             </li>

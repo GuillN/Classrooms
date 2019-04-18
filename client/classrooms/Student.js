@@ -19,6 +19,7 @@ Template.Student.helpers({
         for (let i = 0; i < classroom.students.length; i++) {
             if (classroom.students[i].studentId === studentId) {
                 Session.set('karma', classroom.students[i].karma);
+                Session.set('gender', classroom.students[i].gender);
                 Session.set('classroomId', classroom._id);
                 return classroom.students[i]
             }
@@ -26,7 +27,8 @@ Template.Student.helpers({
     },
     titles: () => {
         const karma = Session.get('karma');
-        return Titles.find({category: karma, taken: false})
+        const gender = Session.get('gender');
+        return Titles.find({category: karma, taken: false, gender: gender})
     }
 });
 

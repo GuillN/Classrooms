@@ -95,6 +95,11 @@ Student = new SimpleSchema({
         },
         allowedValues: ['', 'Bon', 'Mauvais', 'Passif'],
         defaultValue: ''
+    },
+    gender: {
+        type: String,
+        allowedValues: ['Garçon', 'Fille'],
+        defaultValue: 'Garçon'
     }
 });
 

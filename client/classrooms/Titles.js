@@ -6,14 +6,23 @@ Template.Titles.onCreated(function () {
 });
 
 Template.Titles.helpers({
-    goodTitles: () => {
-        return Titles.find({category: 'Bon'})
+    goodManTitles: () => {
+        return Titles.find({category: 'Bon', gender: 'Garçon'})
     },
-    badTitles: () => {
-        return Titles.find({category: 'Mauvais'})
+    badManTitles: () => {
+        return Titles.find({category: 'Mauvais', gender: 'Garçon'})
     },
-    sleepTitles: () => {
-        return Titles.find({category: 'Passif'})
+    sleepManTitles: () => {
+        return Titles.find({category: 'Passif', gender: 'Garçon'})
+    },
+    goodWomanTitles: () => {
+        return Titles.find({category: 'Bon', gender: 'Fille'})
+    },
+    badWomanTitles: () => {
+        return Titles.find({category: 'Mauvais', gender: 'Fille'})
+    },
+    sleepWomanTitles: () => {
+        return Titles.find({category: 'Passif', gender: 'Fille'})
     }
 });
 
