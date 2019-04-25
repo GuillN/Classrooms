@@ -108,16 +108,19 @@ findKarma = function (id) {
         if (classroom.students[i].studentId === id) {
             let student = classroom.students[i];
             console.log(student);
-            let workPoints = 0, behavPoints = 0, sleepPoints = 0;
+            let goodPoints = 0, badPoints = 0, sleepPoints = 0;
             let bad = false, good = false, sleep = false;
             if (student.work) {
                 for (let i = 0; i < student.work.length; i++) {
                     const elem = student.work[i];
                     if (elem.id === 0) {
-                        workPoints -= 2;
+                        badPoints += 2;
                     }
                     if (elem.id === 1) {
-                        workPoints -= 1;
+                        badPoints += 1;
+                    }
+                    if (elem.id === 5) {
+                        goodPoints += 2;
                     }
                 }
             }
@@ -125,10 +128,10 @@ findKarma = function (id) {
                 for (let i = 0; i < student.behaviour.length; i++) {
                     const elem = student.behaviour[i];
                     if (elem.id === 2) {
-                        behavPoints += 1;
+                        goodPoints += 1;
                     }
                     if (elem.id === 3) {
-                        behavPoints -= 1;
+                        badPoints += 1;
                     }
                     if (elem.id === 4) {
                         sleepPoints += 1;
@@ -136,14 +139,11 @@ findKarma = function (id) {
 
                 }
             }
-            if (workPoints < -6) {
+            if (badPoints >= 6) {
                 bad = true;
             }
-            if (behavPoints > 6) {
+            if (goodPoints >= 6) {
                 good = true;
-            }
-            if (behavPoints < -6) {
-                bad = true;
             }
             if (sleepPoints >= 3) {
                 sleep = true;
@@ -170,7 +170,26 @@ findKarma = function (id) {
 
 setKarma = function (karma, id) {
     if (karma === 'Mauvais' || karma === 'Bon' || karma === 'Passif') {
-        Classrooms.update({'students.studentId': id}, {$set: {'students.$.karma': karma, 'students.$.needsTitle': true}})
-
+        let classroom = Classrooms.findOne({'students.studentId': id});
+        for (student in classroom.students) {
+            // console.log(student);
+            // console.log(classroom.students[student].studentId);
+            if (classroom.students[student].studentId === id) {
+                // console.log('student: ' + id);
+                const prevKarma = classroom.students[student].karma;
+                const prevTitle = classroom.students[student].title;
+                // console.log('prev karma: ' + prevKarma);
+                // console.log('prev karma: ' + prevTitle);
+                Classrooms.update({'students.studentId': id}, {$set: {'students.$.karma': karma}});
+                if (prevKarma !== karma || prevTitle === undefined) {
+                    // console.log('Change Of KARMA !!');
+                    Classrooms.update({'students.studentId': id}, {$set: {'students.$.needsTitle': true, 'students.$.title': undefined}});
+                    if (prevTitle !== undefined) {
+                        Titles.update({label: prevTitle}, {$set: {taken: false}})
+                    }
+                }
+                break
+            }
+        }
     }
 };

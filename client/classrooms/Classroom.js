@@ -79,6 +79,16 @@ Template.Classroom.events({
         Meteor.call('pushWork', selectedArray, badWork);
         clearSelection()
     },
+    'click #goodWork': function () {
+        console.log('Good work triggered');
+        const goodWork = {
+            date: getCurrentDate(),
+            label: 'Bien fait',
+            id: 5
+        };
+        Meteor.call('pushWork', selectedArray, goodWork);
+        clearSelection()
+    },
     'click #goodBehaviour': function () {
         console.log('Good behaviour triggered');
         const goodBehaviour = {
