@@ -157,17 +157,26 @@ p
   justify-content space-between
 
 .student-list
-  width 50%
+  display flex
+  flex-direction column
+  flex-wrap wrap
+  height 90vmin
+  margin-left -20vmin
   h1
     a
       text-decoration none
       color purp
 
 .action-buttons
-  width 50%
   position fixed
-  right 0
-  top 180px
+  right 80px
+  top 30vmin
+  border solid purp
+  border-radius 3vmin
+  padding-bottom 3vmin
+  padding-left 3vmin
+  padding-right 3vmin
+  background-color white
 
 .first-element
   display flex
@@ -181,10 +190,12 @@ p
 .fa-circle-o
   padding-top 15px
   padding-right 15px
+  margin-left 15vmin
 
 .fa-check-circle-o
   padding-top 15px
   padding-right 15px
+  margin-left 15vmin
 
 .student
   a
@@ -438,6 +449,12 @@ input, select, textarea
 
 .fa-trash
   padding 10px
+
+.new-title
+  border solid purp
+  border-radius 3vmin
+  padding 3vmin
+  background-color white
 
 .title-list
   display flex

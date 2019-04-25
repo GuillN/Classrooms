@@ -1,6 +1,8 @@
 <template name="Titles">
-    <a href="/titles/edit" class="btn" id="editTitles">Edit</a>
-    {{> quickForm collection="Titles" type="insert" id="insertTitleForm" class="new-title-form" omitFields="teacher, taken"}}
+    <section class="new-title">
+        <a href="/titles/edit" class="btn" id="editTitles" style="margin-bottom: 5px">Edit</a>
+        {{> quickForm collection="Titles" type="insert" id="insertTitleForm" class="new-title-form" omitFields="teacher, taken"}}
+    </section>
     <section class="title-list">
         <ul>
             {{#each goodManTitles}}
