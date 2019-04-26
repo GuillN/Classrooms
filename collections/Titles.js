@@ -23,7 +23,8 @@ Title = new SimpleSchema({
     category: {
         type: String,
         label: 'Catégorie',
-        allowedValues: ['Bon', 'Mauvais', 'Passif']
+        allowedValues: ['Bon', 'Mauvais', 'Passif'],
+        defaultValue: 'Bon'
     },
     taken: {
         type: Boolean,
@@ -31,7 +32,8 @@ Title = new SimpleSchema({
     },
     gender: {
         type: String,
-        allowedValues: ['Garçon', 'Fille']
+        allowedValues: ['Garçon', 'Fille'],
+        defaultValue: 'Garçon'
     },
     teacher: {
         type: String,

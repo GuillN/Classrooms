@@ -65,7 +65,7 @@ social = {
 }
 
 $side-nav = 100px
-$side-nav-large = 200px
+$side-nav-large = 20vmin
 
 html
   box-sizing: border-box
@@ -75,7 +75,7 @@ html
 
 body
   background grey
-  padding: 70px 0 150px
+  padding-top 70px
 
 header
   color #FFF
@@ -117,14 +117,16 @@ p
 
 .main-layout
   lost-center 90%
-  margin-top 20px
-  +above($med)
-    lost-center 90%
-    padding-left $side-nav
-  +above($large)
-    lost-center 80%
-    margin-top 40px
-    padding-left $side-nav-large
+  margin-top 5vmin
+  margin-left 25vmin
+  margin-right 5vmin
+  //+above($med)
+  //  lost-center 90%
+  //  padding-left $side-nav
+  //+above($large)
+  //  lost-center 80%
+  //  margin-top 40px
+  //  padding-left $side-nav-large
 
 #showNew
 #returnTitles
@@ -155,12 +157,17 @@ p
 .classroom-container
   display flex
   justify-content space-between
+  border solid purp
+  padding-left 13vmin
+  padding-top 2vmin
+  border-radius 6vmin
+  background-color white
 
 .student-list
   display flex
   flex-direction column
   flex-wrap wrap
-  height 90vmin
+  height 80vmin
   margin-left -20vmin
   h1
     a
@@ -176,7 +183,7 @@ p
   padding-bottom 3vmin
   padding-left 3vmin
   padding-right 3vmin
-  background-color white
+  background-color light-grey
 
 .first-element
   display flex
@@ -224,7 +231,11 @@ p
 .student-content
   display: flex
   flex-direction row
-  justify-content: flex-start;
+  justify-content space-evenly
+  background-color white
+  border solid purp
+  border-radius 3vmin
+  padding 2vmin
 
 .work
   padding-right: 15%;
@@ -249,9 +260,9 @@ th
   color #FFF
   text-decoration none
   text-transform uppercase
-  padding 5px 15px
+  padding .5vmin 1.5vmin
   border solid 3px purp
-  border-radius 2px
+  border-radius .5vmin
   font-weight 800
   shadow-level(1)
   trans()
@@ -460,6 +471,12 @@ input, select, textarea
   display flex
   flex-wrap wrap
   justify-content space-between
+  border solid purp
+  padding 2vmin
+  border-radius 3vmin
+  margin-top 2vmin
+  background-color white
+  width 100%
 
 header
   display flex
@@ -479,3 +496,17 @@ header
 .app-logo
   height 50px
   padding-right 10px
+
+.gender-symbol
+  height 5vmin
+  width 5vmin
+  border solid purp
+  border-radius 1.5vmin
+  padding 1vmin
+  margin-top 2vmin
+  background-color white
+
+.gender-titles
+  display flex
+  flex-direction column
+  align-items center
