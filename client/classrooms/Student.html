@@ -1,6 +1,7 @@
 <template name="Student">
     <a href="/classroom/{{classroom._id}}" class="btn">Retour</a>
     <h1>{{student.first_name}} {{student.last_name}}</h1>
+    {{> highchartsHelper chartId="studentChart" chartWidth="100%" charHeight="100%" chartObject=studentChart}}
     <section class="student-content">
         {{#if Template.subscriptionsReady}}
         <section class="work">
