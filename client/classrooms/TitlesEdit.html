@@ -24,6 +24,24 @@
             {{/each}}
         </ul>
     </section>
+    <section class="title-list">
+        <ul>
+            {{#each premiumManTitles}}
+            <li class="title-gold{{#if taken}}-dash{{/if}}">
+                <input value="{{position}}" class="edit-pos">
+                <input value="{{label}}" class="edit-title"><i class="fa fa-trash"></i>
+            </li>
+            {{/each}}
+        </ul>
+        <ul>
+            {{#each premiumWomanTitles}}
+            <li class="title-gold{{#if taken}}-dash{{/if}}">
+                <input value="{{position}}" class="edit-pos">
+                <input value="{{label}}" class="edit-title"><i class="fa fa-trash"></i>
+            </li>
+            {{/each}}
+        </ul>
+    </section>
     {{else}}
     <h2>Chargement</h2>
     {{/if}}

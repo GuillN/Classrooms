@@ -13,7 +13,17 @@ Meteor.publish('titles', function () {
 });
 
 Meteor.methods({'editTitle': function (id, name) {
+        const title = Titles.findOne({_id: id});
+        title.takenBy.map(student => {
+            console.log(student);
+            Classrooms.update({'students.studentId': student}, {$set: {'students.$.title': name}})
+        });
         return Titles.update({_id: id}, {$set: {label: name}})
+    }
+});
+
+Meteor.methods({'editPos': function (id, position) {
+        return Titles.update({_id: id}, {$set: {position: position}})
     }
 });
 
@@ -75,7 +85,7 @@ Meteor.methods({'falseAll': function (idArray) {
 });
 
 Meteor.methods({'giveTitle': function (studentId, label) {
-        Titles.update({label: label}, {$set: {taken: true}});
+        Titles.update({label: label}, {$push: {takenBy: studentId}});
         Classrooms.update({'students.studentId': studentId}, {$set: {'students.$.title': label, 'students.$.needsTitle': false}})
     }
 });

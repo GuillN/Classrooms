@@ -55,7 +55,6 @@ Student = new SimpleSchema({
     },
     title: {
         type: String,
-        label: 'Title',
         optional: true,
         autoform: {
             type: 'hidden'

@@ -23,6 +23,12 @@ Template.Titles.helpers({
     },
     sleepWomanTitles: () => {
         return Titles.find({category: 'Passif', gender: 'Fille'})
+    },
+    premiumManTitles: () => {
+        return Titles.find({category: 'Premium', gender: 'Garçon'}, {sort: {position: 1}})
+    },
+    premiumWomanTitles: () => {
+        return Titles.find({category: 'Premium', gender: 'Fille'}, {sort: {position: 1}})
     }
 });
 

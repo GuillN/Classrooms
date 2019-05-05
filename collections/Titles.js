@@ -23,12 +23,27 @@ Title = new SimpleSchema({
     category: {
         type: String,
         label: 'Catégorie',
-        allowedValues: ['Bon', 'Mauvais', 'Passif'],
+        allowedValues: ['Bon', 'Mauvais', 'Passif', 'Premium'],
         defaultValue: 'Bon'
     },
     taken: {
         type: Boolean,
         defaultValue: false
+    },
+    takenBy: {
+        type: Array,
+        optional: true,
+        autoform: {
+            type: 'hidden'
+        }
+    },
+    'takenBy.$': {
+        type: String
+    },
+    position: {
+        type: Number,
+        allowedValues: [0, 1, 2, 3, 4, 5, 6],
+        defaultValue: 0
     },
     gender: {
         type: String,

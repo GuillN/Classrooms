@@ -55,4 +55,23 @@
             </ul>
         </section>
     </section>
+    <section class="gender-titles">
+        <img src="/images/crown.svg" alt="premium" class="gender-symbol"/>
+        <section class="title-list">
+            <ul>
+                {{#each premiumManTitles}}
+                <li class="title-gold{{#if taken}}-dash{{/if}}">
+                    {{position}} - {{label}}
+                </li>
+                {{/each}}
+            </ul>
+            <ul>
+                {{#each premiumWomanTitles}}
+                <li class="title-gold{{#if taken}}-dash{{/if}}">
+                    {{position}} - {{label}}
+                </li>
+                {{/each}}
+            </ul>
+        </section>
+    </section>
 </template>
