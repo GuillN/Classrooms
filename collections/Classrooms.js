@@ -92,8 +92,8 @@ Student = new SimpleSchema({
         autoform: {
             type: 'hidden'
         },
-        allowedValues: ['', 'Bon', 'Mauvais', 'Passif'],
-        defaultValue: ''
+        allowedValues: ['Aucun', 'Bon', 'Mauvais', 'Passif'],
+        defaultValue: 'Aucun'
     },
     gender: {
         type: String,

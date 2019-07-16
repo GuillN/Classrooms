@@ -117,7 +117,6 @@ findKarma = function (id) {
     for (let i = 0; i < classroom.students.length; i++) {
         if (classroom.students[i].studentId === id) {
             let student = classroom.students[i];
-            console.log(student);
             let goodPoints = 0, badPoints = 0, sleepPoints = 0;
             let bad = false, good = false, sleep = false;
             if (student.work) {
@@ -149,13 +148,13 @@ findKarma = function (id) {
 
                 }
             }
-            if (badPoints >= 6) {
+            if (badPoints >= 6 + goodPoints) {
                 bad = true;
             }
-            if (goodPoints >= 6) {
+            else if (goodPoints >= 6 + badPoints) {
                 good = true;
             }
-            if (sleepPoints >= 3) {
+            else if (sleepPoints >= 3) {
                 sleep = true;
             }
             let label;
@@ -172,34 +171,42 @@ findKarma = function (id) {
                 return label
             }
             else{
-                return ''
+                return 'Aucun'
             }
         }
     }
 };
 
 setKarma = function (karma, id) {
-    if (karma === 'Mauvais' || karma === 'Bon' || karma === 'Passif') {
-        let classroom = Classrooms.findOne({'students.studentId': id});
-        for (student in classroom.students) {
+    // Find previous karma
+    let classroom = Classrooms.findOne({'students.studentId': id});
+    let prevKarma;
+    for (let i = 0; i < classroom.students.length; i++) {
+        let student = classroom.students[i];
+        if (student.studentId === id) {
             // console.log(student);
-            // console.log(classroom.students[student].studentId);
-            if (classroom.students[student].studentId === id) {
-                // console.log('student: ' + id);
-                const prevKarma = classroom.students[student].karma;
-                const prevTitle = classroom.students[student].title;
-                // console.log('prev karma: ' + prevKarma);
-                // console.log('prev karma: ' + prevTitle);
-                Classrooms.update({'students.studentId': id}, {$set: {'students.$.karma': karma}});
-                if (prevKarma !== karma || prevTitle === undefined) {
-                    // console.log('Change Of KARMA !!');
-                    Classrooms.update({'students.studentId': id}, {$set: {'students.$.needsTitle': true, 'students.$.title': undefined}});
-                    if (prevTitle !== undefined) {
-                        Titles.update({label: prevTitle}, {$set: {taken: false}})
-                    }
-                }
-                break
-            }
+            prevKarma = student.karma;
+            break
         }
+    }
+    // Set values
+    if (karma === 'Mauvais' || karma === 'Bon' || karma === 'Passif') {
+        if (prevKarma !== karma) {
+            Classrooms.update({'students.studentId': id}, {
+                $set: {
+                    'students.$.karma': karma,
+                    'students.$.needsTitle': true,
+                    'students.$.title': ''
+                }
+            });
+        }
+    } else {
+        Classrooms.update({'students.studentId': id}, {
+            $set: {
+                'students.$.karma': karma,
+                'students.$.needsTitle': false,
+                'students.$.title': ''
+            }
+        });
     }
 };
